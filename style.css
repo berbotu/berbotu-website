@@ -1,95 +1,71 @@
-/* ═══════════════════════════════════════════════════════════════
-   BERBOTU.COM — v5 · Chrome Universe
-   Design system: Dark OLED + Kinetic Brutalism + Space Grotesk
-   Visual identity: Chrome 3D objects, purple→orange brand gradient
-═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   BERBOTU.COM
+   Ref: new.studio · polyamorberlin.com · rachelhow.com
+═══════════════════════════════════════════════════════ */
 
-/* Space Grotesk — kinetic, brutalist, underground music/culture */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
 
 @font-face {
   font-family: 'StartMenu';
   src: url('assets/brand/fonts/StartMenu.ttf') format('truetype');
-  font-weight: normal; font-style: normal;
   font-display: swap;
 }
 
-/* ─── Reset ──────────────────────────────────────────────────── */
+/* ─── Tokens ──────────────────────────────────────────── */
+:root {
+  --bg:     #000000;
+  --bg2:    #0C0C0C;
+  --text:   #F0F0F0;
+  --muted:  rgba(240,240,240,0.38);
+  --dim:    rgba(240,240,240,0.12);
+  --purple: #4800CC;
+  --orange: #E06800;
+  --gold:   #C48000;
+  --grad:   linear-gradient(90deg, #4800CC 0%, #E06800 65%, #C48000 100%);
+  --border: rgba(255,255,255,0.07);
+  --sans:   'Inter', -apple-system, sans-serif;
+  --label:  'StartMenu', monospace;
+  --px:     clamp(1.5rem, 5vw, 5rem);
+}
+
+/* ─── Reset ───────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
-
-/* ─── Design System ──────────────────────────────────────────── */
-:root {
-  /* OLED Black core */
-  --bg:       #000000;
-  --bg-2:     #0A0A0A;
-  --bg-3:     #111111;
-
-  /* Brand colors — extracted from Berbotu logo banner (Canva) */
-  --purple:   #4800CC;
-  --orange:   #E06800;
-  --gold:     #C48000;
-
-  /* Atmospheric accents — from the artwork glow backgrounds */
-  --teal:     #00B898;
-  --pink:     #B02890;
-
-  /* Chrome — from the 3D metallic objects across all artworks */
-  --chrome:   #C8C8C8;
-
-  /* Text */
-  --white:    #F8FAFC;
-  --muted:    rgba(248,250,252,0.4);
-  --subtle:   rgba(248,250,252,0.08);
-
-  /* Brand gradient — the Berbotu signature */
-  --grad:     linear-gradient(90deg, #4800CC 0%, #E06800 65%, #C48000 100%);
-  --grad-v:   linear-gradient(180deg, #4800CC 0%, #E06800 100%);
-
-  /* Chrome metallic gradient — mirrors the 3D objects */
-  --chrome-grad: linear-gradient(135deg, #e0e0e0 0%, #a8a8a8 30%, #505050 55%, #c0c0c0 80%, #e0e0e0 100%);
-
-  /* Borders — Kinetic Brutalism: visible 1-2px lines */
-  --border:   rgba(255,255,255,0.08);
-  --border-2: rgba(255,255,255,0.14);
-
-  /* Typography — Space Grotesk for display, StartMenu for labels */
-  --display:  'Space Grotesk', -apple-system, sans-serif;
-  --label:    'StartMenu', monospace;
-
-  /* Layout */
-  --side: 3vw;
-  --gap:  1.5vw;
-}
-
-/* ─── Base ───────────────────────────────────────────────────── */
 body {
   background: var(--bg);
-  color: var(--white);
-  font-family: var(--display);
-  font-size: 1rem;
+  color: var(--text);
+  font-family: var(--sans);
   line-height: 1.5;
   overflow-x: hidden;
+  cursor: none;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+a { color: inherit; text-decoration: none; cursor: none; }
+img { display: block; max-width: 100%; }
 
-/* Atmospheric background glow — like the artwork backdrop system */
-body::before {
-  content: '';
+/* ─── Custom Cursor ───────────────────────────────────── */
+.cursor {
   position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 1000px 700px at 10% 20%, rgba(72,0,204,0.08) 0%, transparent 65%),
-    radial-gradient(ellipse 700px 600px at 90% 80%, rgba(224,104,0,0.05) 0%, transparent 65%);
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 9999;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.3s cubic-bezier(0.25,0.46,0.45,0.94),
+              height 0.3s cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 0.3s;
+}
+.cursor.grow {
+  width: 40px;
+  height: 40px;
 }
 
-a { color: inherit; text-decoration: none; cursor: pointer; }
-img { display: block; }
-button { cursor: pointer; }
-
-/* ─── Nav ────────────────────────────────────────────────────── */
+/* ─── Nav ─────────────────────────────────────────────── */
 #nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -97,48 +73,41 @@ button { cursor: pointer; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem var(--side);
-  transition: background 0.35s, border-color 0.35s;
+  padding: 1.75rem var(--px);
+  transition: background 0.4s ease, border-color 0.4s ease;
   border-bottom: 1px solid transparent;
 }
-
 #nav.scrolled {
   background: rgba(0,0,0,0.88);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-bottom-color: var(--border);
 }
-
-.nav-logo img {
-  height: 16px;
-  width: auto;
-}
-
+.nav-logo img { height: 15px; width: auto; }
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 2.5vw;
+  gap: 2.5rem;
   align-items: center;
 }
-
 .nav-links a {
   font-family: var(--label);
-  font-size: 9px;
-  letter-spacing: 0.20em;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
   transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--white); }
-.nav-links .nav-cta {
-  color: var(--white);
-  border: 1px solid var(--border-2);
-  padding: 0.5rem 1.25rem;
-  transition: border-color 0.2s;
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  border: 1px solid var(--border) !important;
+  padding: 0.55rem 1.25rem !important;
+  color: var(--text) !important;
+  transition: border-color 0.2s !important;
 }
-.nav-links .nav-cta:hover { border-color: rgba(255,255,255,0.5); }
+.nav-cta:hover { border-color: rgba(255,255,255,0.35) !important; }
 
-/* ─── Hero ───────────────────────────────────────────────────── */
+/* ─── Hero ────────────────────────────────────────────── */
 #hero {
   min-height: 100dvh;
   display: flex;
@@ -148,62 +117,29 @@ button { cursor: pointer; }
   overflow: hidden;
 }
 
-/* Primary atmospheric glow — centered purple, like the artwork system */
-.hero-glow {
+#hero::before {
+  content: '';
   position: absolute;
-  width: 1000px;
-  height: 800px;
+  width: 900px;
+  height: 900px;
   border-radius: 50%;
-  background: radial-gradient(circle,
-    rgba(72,0,204,0.30) 0%,
-    rgba(72,0,204,0.08) 45%,
-    transparent 70%
-  );
-  top: 50%; left: 38%;
+  background: radial-gradient(circle, rgba(72,0,204,0.16) 0%, transparent 65%);
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
-/* Secondary warm glow — orange right side, brand gradient warmth */
-.hero-glow-teal {
-  position: absolute;
-  width: 600px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle,
-    rgba(224,104,0,0.16) 0%,
-    rgba(196,128,0,0.05) 45%,
-    transparent 70%
-  );
-  top: 40%; right: 8%;
-  pointer-events: none;
-}
-
-/* Film grain texture — present in all Berbotu artworks */
-.hero-noise {
-  position: absolute;
-  inset: 0;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  pointer-events: none;
-}
-
-/* Chrome torus — actual Canva artwork used as decoration.
-   mix-blend-mode: screen makes the black bg invisible,
-   only the chrome object is visible on the dark site bg */
 .hero-chrome-art {
   position: absolute;
-  right: -4%;
+  right: -5%;
   top: 50%;
-  transform: translateY(-52%);
-  width: 46vw;
-  max-width: 560px;
-  min-width: 280px;
-  opacity: 0.22;
+  transform: translateY(-50%);
+  width: 36vw;
+  max-width: 460px;
+  opacity: 0.10;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 0;
-  filter: blur(0.3px);
 }
 
 .hero-content {
@@ -212,311 +148,241 @@ button { cursor: pointer; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 2.4rem;
   text-align: center;
-  padding: 0 var(--side);
-  max-width: 680px;
+  padding: 0 var(--px);
 }
 
-/* Logo — white SVG with purple glow, large and impactful */
 .hero-logo {
-  width: min(400px, 62vw);
-  height: auto;
-  filter: drop-shadow(0 0 80px rgba(72,0,204,0.5))
-          drop-shadow(0 0 30px rgba(72,0,204,0.3));
+  width: min(360px, 55vw);
+  filter: drop-shadow(0 0 70px rgba(72,0,204,0.30));
 }
 
-/* Thin brand gradient line — Berbotu signature */
 .hero-accent {
-  width: min(200px, 36vw);
+  width: min(120px, 24vw);
   height: 1px;
   background: var(--grad);
-  opacity: 0.55;
-  margin: -0.75rem 0;
+  opacity: 0.45;
+  margin: -1.2rem 0;
 }
 
 .hero-tagline {
   font-family: var(--label);
-  font-size: 10px;
-  letter-spacing: 0.28em;
+  font-size: 9px;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: rgba(248,250,252,0.22);
+  color: rgba(240,240,240,0.18);
 }
 
 .hero-links {
   display: flex;
-  gap: 2.4rem;
+  gap: 2.75rem;
   align-items: center;
 }
-
 .hero-links a {
-  color: rgba(248,250,252,0.30);
-  transition: color 0.25s;
+  color: rgba(240,240,240,0.25);
   display: flex;
   align-items: center;
+  transition: color 0.25s;
 }
-.hero-links a:hover { color: var(--white); }
-.hero-links svg { width: 18px; height: 18px; }
+.hero-links a:hover { color: var(--text); }
+.hero-links svg { width: 17px; height: 17px; }
 
-/* Down arrow — float animation */
 .hero-scroll-hint {
   position: absolute;
-  bottom: 2rem;
+  bottom: 2.5rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 14px;
-  color: rgba(248,250,252,0.15);
-  animation: float 2.8s ease-in-out infinite;
+  font-size: 11px;
+  color: rgba(240,240,240,0.10);
+  animation: float 3s ease-in-out infinite;
   user-select: none;
 }
-
 @keyframes float {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50%       { transform: translateX(-50%) translateY(9px); }
 }
 
-/* ─── Brand Line — between hero and featured ─────────────────── */
+/* ─── Brand Line ──────────────────────────────────────── */
 .brand-line {
   height: 1px;
   background: var(--grad);
-  opacity: 0.45;
+  opacity: 0.30;
 }
 
-/* ─── Featured Drop ──────────────────────────────────────────── */
+/* ─── Featured ────────────────────────────────────────── */
 #featured {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 52vh;
-  overflow: hidden;
-  position: relative;
   border-bottom: 1px solid var(--border);
+  min-height: 68vh;
 }
 
 .featured-artwork {
-  overflow: hidden;
-  background: #050505;
   position: relative;
+  overflow: hidden;
+  background: #080808;
 }
-
 .featured-artwork img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.5s;
+  transition: transform 1.8s cubic-bezier(0.25,0.46,0.45,0.94);
 }
-
-#featured:hover .featured-artwork img {
-  transform: scale(1.05);
-  filter: brightness(0.8);
-}
+#featured:hover .featured-artwork img { transform: scale(1.04); }
 
 .featured-info {
-  padding: 3.5vw 4vw;
+  padding: 4vw 5vw;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 1.2rem;
+  gap: 1.6rem;
   border-left: 1px solid var(--border);
-  background:
-    linear-gradient(135deg,
-      rgba(72,0,204,0.05) 0%,
-      transparent 55%
-    );
 }
 
-/* Chrome metallic gradient text — mirrors the 3D chrome objects */
 .featured-tag {
   font-family: var(--label);
-  font-size: 9px;
-  letter-spacing: 0.22em;
+  font-size: 8.5px;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  background: var(--chrome-grad);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: inline-block;
+  color: var(--muted);
 }
 
-/* Space Grotesk Bold oversized artist name */
 .featured-artist {
-  font-family: var(--display);
+  font-size: clamp(38px, 5.5vw, 92px);
   font-weight: 700;
-  font-size: clamp(32px, 5vw, 80px);
-  line-height: 0.90;
-  color: var(--white);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  color: var(--text);
   text-transform: lowercase;
-  letter-spacing: -0.025em;
 }
 
 .featured-title {
-  font-family: var(--display);
+  font-size: clamp(12px, 1.2vw, 18px);
   font-weight: 400;
-  font-size: clamp(14px, 1.6vw, 24px);
-  color: rgba(248,250,252,0.38);
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
+  color: var(--muted);
 }
 
 .featured-actions {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-top: 0.5rem;
+  gap: 2rem;
+  padding-top: 0.5rem;
 }
 
-/* Gradient background CTA — the brand in a button */
 .featured-cta {
   font-family: var(--label);
-  font-size: 9px;
-  letter-spacing: 0.20em;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--white);
-  background: var(--grad);
-  padding: 0.85rem 2rem;
-  transition: opacity 0.2s, transform 0.2s;
+  color: #000;
+  background: var(--text);
+  padding: 0.9rem 2.2rem;
+  transition: opacity 0.2s;
   white-space: nowrap;
+  display: inline-block;
 }
-.featured-cta:hover { opacity: 0.75; transform: translateY(-1px); }
+.featured-cta:hover { opacity: 0.70; }
 
 .featured-cta-sec {
   font-family: var(--label);
-  font-size: 9px;
-  letter-spacing: 0.20em;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(248,250,252,0.28);
+  color: var(--muted);
   transition: color 0.2s;
 }
-.featured-cta-sec:hover { color: var(--white); }
+.featured-cta-sec:hover { color: var(--text); }
 
-/* ─── Artist Ticker ──────────────────────────────────────────── */
+/* ─── Artist Ticker ───────────────────────────────────── */
 .artists-ticker {
   overflow: hidden;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: 0.9rem 0;
-  background: var(--bg-2);
-  cursor: default;
+  padding: 1.1rem 0;
+  background: var(--bg2);
 }
-
 .ticker-track {
   display: flex;
   white-space: nowrap;
-  will-change: transform;
-  animation: ticker 25s linear infinite;
+  animation: ticker 30s linear infinite;
 }
-
-.artists-ticker:hover .ticker-track {
-  animation-play-state: paused;
-}
-
+.artists-ticker:hover .ticker-track { animation-play-state: paused; }
 @keyframes ticker {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-
 .ticker-track span {
   font-family: var(--label);
-  font-size: 9px;
+  font-size: 8.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(248,250,252,0.25);
-  padding: 0 1.8rem;
+  color: rgba(240,240,240,0.20);
+  padding: 0 2rem;
   transition: color 0.2s;
 }
-.ticker-track span:hover { color: rgba(248,250,252,0.65); }
-
-/* Chrome gradient separator dots */
+.ticker-track span:hover { color: rgba(240,240,240,0.60); }
 .ticker-sep {
-  background: var(--chrome-grad) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  opacity: 0.3 !important;
+  color: rgba(240,240,240,0.10) !important;
   padding: 0 0.5rem !important;
 }
 
-/* ─── Releases ───────────────────────────────────────────────── */
+/* ─── Releases ────────────────────────────────────────── */
 #releases {
-  padding: 5vw var(--side) 8vw;
+  padding: 6vw var(--px) 8vw;
 }
-
 .releases-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 3.5vw;
-  padding-bottom: 1.25rem;
+  margin-bottom: 4vw;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--border);
 }
-
-/* Space Grotesk Bold — large and aggressive for section heading */
 .releases-label {
-  font-family: var(--display);
+  font-size: clamp(28px, 3.5vw, 54px);
   font-weight: 700;
-  font-size: clamp(28px, 3.5vw, 56px);
-  color: var(--white);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   line-height: 1;
 }
-
 .releases-count {
   font-family: var(--label);
-  font-size: 9px;
+  font-size: 8.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(248,250,252,0.25);
+  color: var(--muted);
 }
 
-/* Asymmetric editorial grid — keeps the staggered layout */
+/* 4-col grid with 1px hairline gaps — clean and editorial */
 .releases-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: var(--gap);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
 }
-
-.release-card:nth-child(10n+1)  { grid-column: 1 / span 5; }
-.release-card:nth-child(10n+2)  { grid-column: 8 / span 5; }
-.release-card:nth-child(10n+3)  { grid-column: 1 / span 12; }
-.release-card:nth-child(10n+4)  { grid-column: 2 / span 5; }
-.release-card:nth-child(10n+5)  { grid-column: 7 / span 4; }
-.release-card:nth-child(10n+6)  { grid-column: 1 / span 12; }
-.release-card:nth-child(10n+7)  { grid-column: 1 / span 4; }
-.release-card:nth-child(10n+8)  { grid-column: 6 / span 4; }
-.release-card:nth-child(10n+9)  { grid-column: 3 / span 6; }
-.release-card:nth-child(10n+10) { grid-column: 1 / span 12; }
 
 .release-card {
-  cursor: pointer;
   position: relative;
-  background: #050505;
   overflow: hidden;
-  /* 1px border — Kinetic Brutalism thin borders */
-  border: 1px solid var(--border);
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.release-card:hover {
-  border-color: rgba(72,0,204,0.5);
-  box-shadow:
-    0 0 0 1px rgba(72,0,204,0.2),
-    0 4px 40px rgba(72,0,204,0.10);
-}
-
-.release-card > img {
-  display: block;
-  width: 100%;
   aspect-ratio: 1;
+  background: var(--bg);
+  cursor: none;
+}
+.release-card > img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.5s;
+  display: block;
+  transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 0.4s ease;
 }
-
 .release-card:hover > img {
-  transform: scale(1.04);
-  opacity: 0.45;
+  transform: scale(1.07);
+  opacity: 0.30;
 }
-
-/* Atmospheric overlay — mirrors the radial glow from artwork bgs */
 .release-overlay {
   position: absolute;
   inset: 0;
@@ -524,119 +390,98 @@ button { cursor: pointer; }
   flex-direction: column;
   justify-content: flex-end;
   padding: 1.5rem;
-  background:
-    linear-gradient(to top,
-      rgba(0,0,10,0.96) 0%,
-      rgba(0,0,10,0.55) 40%,
-      rgba(0,0,10,0.05) 75%,
-      transparent 100%
-    ),
-    radial-gradient(ellipse at 50% 100%, rgba(72,0,204,0.14) 0%, transparent 65%);
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.95) 0%,
+    rgba(0,0,0,0.40) 50%,
+    transparent 100%
+  );
   opacity: 0;
-  transition: opacity 0.35s;
+  transition: opacity 0.35s ease;
 }
-
 .release-card:hover .release-overlay { opacity: 1; }
-
 .release-artist {
-  font-family: var(--display);
+  font-size: clamp(13px, 1.15vw, 18px);
   font-weight: 700;
-  font-size: clamp(14px, 1.5vw, 22px);
-  color: var(--white);
-  text-transform: lowercase;
-  line-height: 1;
   letter-spacing: -0.01em;
+  text-transform: lowercase;
+  line-height: 1.1;
+  color: var(--text);
 }
-
 .release-title {
-  font-family: var(--display);
+  font-size: clamp(9px, 0.7vw, 11px);
   font-weight: 400;
-  font-size: clamp(11px, 0.9vw, 14px);
-  color: rgba(248,250,252,0.45);
-  margin-top: 0.35rem;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-top: 0.35rem;
 }
-
 .release-links {
   display: flex;
   gap: 1rem;
-  margin-top: 0.9rem;
+  margin-top: 0.8rem;
 }
-
 .release-links a {
   font-family: var(--label);
-  font-size: 8px;
+  font-size: 7.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(248,250,252,0.38);
-  border-bottom: 1px solid rgba(248,250,252,0.12);
+  color: var(--muted);
+  border-bottom: 1px solid rgba(240,240,240,0.14);
   padding-bottom: 2px;
   transition: color 0.2s, border-color 0.2s;
 }
 .release-links a:hover {
-  color: var(--white);
-  border-bottom-color: rgba(72,0,204,0.7);
+  color: var(--text);
+  border-bottom-color: rgba(72,0,204,0.8);
 }
 
-/* ─── Music ──────────────────────────────────────────────────── */
+/* ─── Music ───────────────────────────────────────────── */
 #music {
-  padding: 0 var(--side) 7vw;
-}
-
-.music-label {
-  font-family: var(--label);
-  font-size: 9px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(248,250,252,0.25);
-  margin-bottom: 1.8rem;
-  padding-top: 5vw;
+  padding: 5vw var(--px) 7vw;
   border-top: 1px solid var(--border);
 }
-
-#music iframe {
+.music-label {
+  font-family: var(--label);
+  font-size: 8.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+.music-embed iframe {
   width: 100%;
   height: 300px;
   border: none;
 }
 
-/* ─── Demos ──────────────────────────────────────────────────── */
+/* ─── Demos ───────────────────────────────────────────── */
 #demos {
-  padding: 10vw var(--side) 12vw;
+  padding: 10vw var(--px) 12vw;
   position: relative;
   overflow: hidden;
   border-top: 1px solid var(--border);
 }
-
-/* Recreates the "berbotu. records" Canva artwork (page 48) —
-   rose-purple radial glow on deep dark, exactly that atmosphere */
 #demos::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 800px 600px at 50% 60%,
-    rgba(140,20,100,0.12) 0%,
-    rgba(72,0,204,0.08) 45%,
-    transparent 75%
+  background: radial-gradient(ellipse 700px 500px at 50% 70%,
+    rgba(72,0,204,0.09) 0%,
+    transparent 70%
   );
   pointer-events: none;
 }
-
-/* Chrome wings artwork — Canva element, screen blend decorative */
 .demos-chrome-art {
   position: absolute;
-  bottom: -10%;
+  bottom: -5%;
   left: 50%;
   transform: translateX(-50%);
-  width: 65vw;
-  max-width: 750px;
-  opacity: 0.07;
+  width: 52vw;
+  max-width: 600px;
+  opacity: 0.055;
   mix-blend-mode: screen;
   pointer-events: none;
-  filter: blur(0.5px);
 }
-
 .demos-inner {
   position: relative;
   z-index: 1;
@@ -644,151 +489,117 @@ button { cursor: pointer; }
   flex-direction: column;
   gap: 2rem;
 }
-
 .demos-label {
   font-family: var(--label);
-  font-size: 9px;
-  letter-spacing: 0.24em;
+  font-size: 8.5px;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: rgba(248,250,252,0.25);
+  color: var(--muted);
 }
-
-/* Large email — Space Grotesk Bold, oversized, Kinetic Brutalism */
 .demos-email {
-  font-family: var(--display);
+  font-size: clamp(22px, 4.2vw, 72px);
   font-weight: 700;
-  font-size: clamp(20px, 4vw, 72px);
+  letter-spacing: -0.025em;
   line-height: 1;
-  display: inline-block;
+  color: var(--text);
   word-break: break-all;
-  color: var(--white);
-  letter-spacing: -0.02em;
+  display: inline-block;
   transition: opacity 0.25s;
 }
-.demos-email:hover { opacity: 0.35; }
-
+.demos-email:hover { opacity: 0.28; }
 .demos-note {
   font-family: var(--label);
-  font-size: 9px;
-  letter-spacing: 0.16em;
+  font-size: 8.5px;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
-  color: rgba(248,250,252,0.16);
+  color: rgba(240,240,240,0.13);
 }
 
-/* ─── Footer ─────────────────────────────────────────────────── */
+/* ─── Footer ──────────────────────────────────────────── */
 #footer {
-  padding: 2.5rem var(--side);
+  padding: 2.5rem var(--px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  /* Brand gradient as the top border — the Berbotu signature */
   border-top: 1px solid transparent;
   background:
     linear-gradient(var(--bg), var(--bg)) padding-box,
     var(--grad) border-box;
 }
-
-/* Chrome sparkle stars from Canva — screen blend decoration */
 .footer-chrome-art {
   position: absolute;
-  right: 4%;
+  right: 2%;
   top: 50%;
   transform: translateY(-50%);
-  height: 130%;
+  height: 170%;
   width: auto;
-  opacity: 0.08;
+  opacity: 0.055;
   mix-blend-mode: screen;
   pointer-events: none;
 }
-
 .footer-logo {
   height: 13px;
   width: auto;
-  opacity: 0.22;
-  position: relative;
-  z-index: 1;
+  opacity: 0.20;
+  position: relative; z-index: 1;
 }
-
 .footer-meta {
   font-family: var(--label);
-  font-size: 8px;
+  font-size: 7.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(248,250,252,0.10);
+  color: rgba(240,240,240,0.10);
   position: relative; z-index: 1;
 }
-
 .footer-links {
   display: flex;
-  gap: 2.5vw;
+  gap: 2.5rem;
   position: relative; z-index: 1;
 }
-
 .footer-links a {
   font-family: var(--label);
-  font-size: 8px;
+  font-size: 7.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(248,250,252,0.16);
+  color: rgba(240,240,240,0.16);
   transition: color 0.2s;
 }
-.footer-links a:hover { color: var(--white); }
+.footer-links a:hover { color: var(--text); }
 
-/* ─── Scroll Reveal ──────────────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.85s ease, transform 0.85s ease;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ─── Responsive ─────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  :root { --gap: 2vw; --side: 4vw; }
-
-  .hero-chrome-art { opacity: 0.13; width: 65vw; right: -14%; }
+/* ─── Responsive ──────────────────────────────────────── */
+@media (max-width: 960px) {
+  .hero-chrome-art { opacity: 0.07; width: 52vw; right: -10%; }
 
   #featured { grid-template-columns: 1fr; min-height: auto; }
-  .featured-artwork { aspect-ratio: 1; }
+  .featured-artwork { aspect-ratio: 1; max-height: 60vw; overflow: hidden; }
   .featured-info {
     border-left: none;
     border-top: 1px solid var(--border);
-    padding: 2.5rem 4vw;
+    padding: 3rem var(--px);
   }
 
-  .release-card:nth-child(10n+1),
-  .release-card:nth-child(10n+2),
-  .release-card:nth-child(10n+4),
-  .release-card:nth-child(10n+5),
-  .release-card:nth-child(10n+7),
-  .release-card:nth-child(10n+8),
-  .release-card:nth-child(10n+9) { grid-column: span 6; }
-  .release-card:nth-child(10n+3),
-  .release-card:nth-child(10n+6),
-  .release-card:nth-child(10n+10) { grid-column: span 12; }
+  .releases-grid { grid-template-columns: repeat(3, 1fr); }
 
-  /* Always-visible overlay on touch devices */
+  /* Always visible on touch */
   .release-overlay { opacity: 1; }
-  .release-card > img { opacity: 0.65; }
-  .release-card:hover > img { opacity: 0.65; transform: none; }
+  .release-card > img { opacity: 0.55; }
+  .release-card:hover > img { opacity: 0.55; transform: none; }
 }
 
 @media (max-width: 640px) {
-  :root { --gap: 0.75rem; --side: 1.25rem; }
+  :root { --px: 1.5rem; }
 
-  #nav { padding: 1.25rem var(--side); }
+  #nav { padding: 1.25rem var(--px); }
   .nav-links { display: none; }
 
   .hero-chrome-art { display: none; }
-  .hero-logo { width: min(280px, 74vw); }
+  .hero-logo { width: min(260px, 70vw); }
 
-  .release-card { grid-column: span 12 !important; }
+  .releases-grid { grid-template-columns: repeat(2, 1fr); }
 
-  .releases-label { font-size: clamp(28px, 8vw, 48px); }
-  .featured-artist { font-size: clamp(30px, 8vw, 52px); }
-  .demos-email { font-size: clamp(18px, 7.5vw, 38px); }
+  .featured-artwork { max-height: 85vw; }
 
   #footer {
     flex-direction: column;
@@ -796,13 +607,21 @@ button { cursor: pointer; }
     align-items: flex-start;
   }
   .footer-chrome-art { display: none; }
-  .demos-chrome-art { opacity: 0.04; }
 }
 
-/* ─── Reduced motion ─────────────────────────────────────────── */
+/* ─── No hover / touch devices ────────────────────────── */
+@media (hover: none) {
+  body { cursor: auto; }
+  a { cursor: auto; }
+  .cursor { display: none; }
+}
+
+/* ─── Reduced motion ──────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .ticker-track { animation: none; }
   .hero-scroll-hint { animation: none; }
-  .reveal { transition: none; }
+  .cursor { display: none; }
+  body { cursor: auto; }
+  a { cursor: auto; }
   * { transition-duration: 0.01ms !important; }
 }
