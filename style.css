@@ -1,15 +1,12 @@
 /* ═══════════════════════════════════════════════════════════════
-   BERBOTU.COM — Chrome Universe
-   Built from label visual identity: chrome 3D objects,
-   atmospheric radial glows, purple→orange brand gradient.
+   BERBOTU.COM — v5 · Chrome Universe
+   Design system: Dark OLED + Kinetic Brutalism + Space Grotesk
+   Visual identity: Chrome 3D objects, purple→orange brand gradient
 ═══════════════════════════════════════════════════════════════ */
 
-@font-face {
-  font-family: 'Vanished';
-  src: url('assets/brand/fonts/Vanished.ttf') format('truetype');
-  font-weight: normal; font-style: normal;
-  font-display: swap;
-}
+/* Space Grotesk — kinetic, brutalist, underground music/culture */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+
 @font-face {
   font-family: 'StartMenu';
   src: url('assets/brand/fonts/StartMenu.ttf') format('truetype');
@@ -19,86 +16,78 @@
 
 /* ─── Reset ──────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
-/* ─── Design Tokens ──────────────────────────────────────────── */
+/* ─── Design System ──────────────────────────────────────────── */
 :root {
-  /* Core backgrounds */
-  --bg:          #050505;
-  --bg-2:        #0C0C0C;
-  --bg-3:        #141414;
+  /* OLED Black core */
+  --bg:       #000000;
+  --bg-2:     #0A0A0A;
+  --bg-3:     #111111;
 
-  /* Brand gradient — extracted from Berbotu logo banner */
-  --purple:      #4800CC;
-  --orange:      #E06800;
-  --gold:        #C48000;
+  /* Brand colors — extracted from Berbotu logo banner (Canva) */
+  --purple:   #4800CC;
+  --orange:   #E06800;
+  --gold:     #C48000;
 
-  /* Atmospheric accent colors — from artwork backgrounds */
-  --teal:        #00B898;
-  --red:         #C82040;
-  --pink:        #CC30A0;
+  /* Atmospheric accents — from the artwork glow backgrounds */
+  --teal:     #00B898;
+  --pink:     #B02890;
 
-  /* Chrome palette — from the 3D chrome objects */
-  --chrome-hi:   #E8E8E8;
-  --chrome-mid:  #A0A0A0;
-  --chrome-lo:   #505050;
+  /* Chrome — from the 3D metallic objects across all artworks */
+  --chrome:   #C8C8C8;
 
   /* Text */
-  --white:       #F0F0F0;
-  --muted:       rgba(240,240,240,0.38);
-  --subtle:      rgba(240,240,240,0.10);
+  --white:    #F8FAFC;
+  --muted:    rgba(248,250,252,0.4);
+  --subtle:   rgba(248,250,252,0.08);
 
-  /* Gradients */
-  --brand-grad:  linear-gradient(90deg, #4800CC 0%, #E06800 65%, #C48000 100%);
-  --chrome-grad: linear-gradient(135deg, #e8e8e8 0%, #b0b0b0 25%, #585858 50%, #b8b8b8 75%, #e8e8e8 100%);
+  /* Brand gradient — the Berbotu signature */
+  --grad:     linear-gradient(90deg, #4800CC 0%, #E06800 65%, #C48000 100%);
+  --grad-v:   linear-gradient(180deg, #4800CC 0%, #E06800 100%);
 
-  /* Borders */
-  --border:      rgba(255,255,255,0.06);
-  --border-glow: rgba(72,0,204,0.25);
+  /* Chrome metallic gradient — mirrors the 3D objects */
+  --chrome-grad: linear-gradient(135deg, #e0e0e0 0%, #a8a8a8 30%, #505050 55%, #c0c0c0 80%, #e0e0e0 100%);
+
+  /* Borders — Kinetic Brutalism: visible 1-2px lines */
+  --border:   rgba(255,255,255,0.08);
+  --border-2: rgba(255,255,255,0.14);
+
+  /* Typography — Space Grotesk for display, StartMenu for labels */
+  --display:  'Space Grotesk', -apple-system, sans-serif;
+  --label:    'StartMenu', monospace;
 
   /* Layout */
-  --side:  3vw;
-  --gap:   1.2vw;
-
-  /* Fonts */
-  --font-display: 'Vanished', sans-serif;
-  --font-ui:      'StartMenu', monospace;
-  --font-sans:    -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --side: 3vw;
+  --gap:  1.5vw;
 }
 
 /* ─── Base ───────────────────────────────────────────────────── */
 body {
   background: var(--bg);
   color: var(--white);
-  font-family: var(--font-ui);
-  font-size: 13px;
-  line-height: 1;
+  font-family: var(--display);
+  font-size: 1rem;
+  line-height: 1.5;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Persistent atmospheric background — mirrors artwork glow system */
+/* Atmospheric background glow — like the artwork backdrop system */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 900px 700px at 12% 25%, rgba(72,0,204,0.09) 0%, transparent 70%),
-    radial-gradient(ellipse 700px 600px at 88% 75%, rgba(224,104,0,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 500px 400px at 50% 100%, rgba(0,184,152,0.04) 0%, transparent 70%);
+    radial-gradient(ellipse 1000px 700px at 10% 20%, rgba(72,0,204,0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 700px 600px at 90% 80%, rgba(224,104,0,0.05) 0%, transparent 65%);
   pointer-events: none;
   z-index: 0;
 }
 
-a { color: inherit; text-decoration: none; }
+a { color: inherit; text-decoration: none; cursor: pointer; }
 img { display: block; }
-
-/* ─── Brand Gradient Line — used between sections ────────────── */
-.brand-line {
-  height: 1px;
-  background: var(--brand-grad);
-  opacity: 0.5;
-}
+button { cursor: pointer; }
 
 /* ─── Nav ────────────────────────────────────────────────────── */
 #nav {
@@ -108,22 +97,21 @@ img { display: block; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.8rem var(--side);
-  transition: background 0.4s ease, border-color 0.4s ease;
+  padding: 1.5rem var(--side);
+  transition: background 0.35s, border-color 0.35s;
   border-bottom: 1px solid transparent;
 }
 
 #nav.scrolled {
-  background: rgba(5,5,5,0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-bottom-color: var(--border);
 }
 
 .nav-logo img {
-  height: 15px;
+  height: 16px;
   width: auto;
-  opacity: 0.9;
 }
 
 .nav-links {
@@ -134,27 +122,25 @@ img { display: block; }
 }
 
 .nav-links a {
-  font-family: var(--font-ui);
+  font-family: var(--label);
   font-size: 9px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.20em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.42);
+  color: var(--muted);
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--white); }
 .nav-links .nav-cta {
   color: var(--white);
-  padding: 0.5rem 1rem;
-  border: 1px solid rgba(255,255,255,0.15);
-  transition: border-color 0.2s, color 0.2s;
+  border: 1px solid var(--border-2);
+  padding: 0.5rem 1.25rem;
+  transition: border-color 0.2s;
 }
-.nav-links .nav-cta:hover {
-  border-color: rgba(255,255,255,0.4);
-}
+.nav-links .nav-cta:hover { border-color: rgba(255,255,255,0.5); }
 
 /* ─── Hero ───────────────────────────────────────────────────── */
 #hero {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -162,60 +148,62 @@ img { display: block; }
   overflow: hidden;
 }
 
-/* Main hero glow — purple center-left, mimics artwork bg system */
+/* Primary atmospheric glow — centered purple, like the artwork system */
 .hero-glow {
   position: absolute;
-  width: 900px;
-  height: 900px;
+  width: 1000px;
+  height: 800px;
   border-radius: 50%;
   background: radial-gradient(circle,
-    rgba(72,0,204,0.28) 0%,
-    rgba(72,0,204,0.10) 40%,
+    rgba(72,0,204,0.30) 0%,
+    rgba(72,0,204,0.08) 45%,
     transparent 70%
   );
-  top: 50%; left: 30%;
+  top: 50%; left: 38%;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
-/* Secondary glow — warm orange right, brand gradient system */
+/* Secondary warm glow — orange right side, brand gradient warmth */
 .hero-glow-teal {
   position: absolute;
   width: 600px;
-  height: 600px;
+  height: 500px;
   border-radius: 50%;
   background: radial-gradient(circle,
-    rgba(224,104,0,0.14) 0%,
-    rgba(196,128,0,0.06) 40%,
+    rgba(224,104,0,0.16) 0%,
+    rgba(196,128,0,0.05) 45%,
     transparent 70%
   );
-  top: 45%; right: 10%;
+  top: 40%; right: 8%;
   pointer-events: none;
 }
 
-/* Film grain noise — matches the subtle texture in artworks */
+/* Film grain texture — present in all Berbotu artworks */
 .hero-noise {
   position: absolute;
   inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   pointer-events: none;
 }
 
-/* Chrome torus decoration — the signature 3D chrome object */
+/* Chrome torus — actual Canva artwork used as decoration.
+   mix-blend-mode: screen makes the black bg invisible,
+   only the chrome object is visible on the dark site bg */
 .hero-chrome-art {
   position: absolute;
-  right: -6%;
+  right: -4%;
   top: 50%;
-  transform: translateY(-50%);
-  width: 48vw;
-  max-width: 580px;
-  min-width: 300px;
-  opacity: 0.18;
+  transform: translateY(-52%);
+  width: 46vw;
+  max-width: 560px;
+  min-width: 280px;
+  opacity: 0.22;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 0;
-  filter: blur(0.5px);
+  filter: blur(0.3px);
 }
 
 .hero-content {
@@ -224,121 +212,124 @@ img { display: block; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.8rem;
+  gap: 2rem;
   text-align: center;
   padding: 0 var(--side);
+  max-width: 680px;
 }
 
+/* Logo — white SVG with purple glow, large and impactful */
 .hero-logo {
-  width: min(380px, 58vw);
+  width: min(400px, 62vw);
   height: auto;
-  filter: drop-shadow(0 0 60px rgba(72,0,204,0.35));
+  filter: drop-shadow(0 0 80px rgba(72,0,204,0.5))
+          drop-shadow(0 0 30px rgba(72,0,204,0.3));
 }
 
-/* Thin brand gradient accent line below hero logo */
+/* Thin brand gradient line — Berbotu signature */
 .hero-accent {
-  width: min(160px, 30vw);
+  width: min(200px, 36vw);
   height: 1px;
-  background: var(--brand-grad);
-  opacity: 0.6;
-  margin: -0.5rem 0;
+  background: var(--grad);
+  opacity: 0.55;
+  margin: -0.75rem 0;
 }
 
 .hero-tagline {
-  font-family: var(--font-ui);
-  font-size: 9px;
-  letter-spacing: 0.3em;
+  font-family: var(--label);
+  font-size: 10px;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.24);
+  color: rgba(248,250,252,0.22);
 }
 
 .hero-links {
   display: flex;
-  gap: 2.2rem;
+  gap: 2.4rem;
   align-items: center;
-  margin-top: 0.25rem;
 }
 
 .hero-links a {
-  color: rgba(240,240,240,0.28);
+  color: rgba(248,250,252,0.30);
   transition: color 0.25s;
   display: flex;
   align-items: center;
 }
 .hero-links a:hover { color: var(--white); }
-.hero-links svg { width: 17px; height: 17px; }
+.hero-links svg { width: 18px; height: 18px; }
 
+/* Down arrow — float animation */
 .hero-scroll-hint {
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 13px;
-  color: rgba(240,240,240,0.15);
-  animation: float 2.6s ease-in-out infinite;
+  font-size: 14px;
+  color: rgba(248,250,252,0.15);
+  animation: float 2.8s ease-in-out infinite;
   user-select: none;
 }
 
 @keyframes float {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(8px); }
+  50%       { transform: translateX(-50%) translateY(9px); }
+}
+
+/* ─── Brand Line — between hero and featured ─────────────────── */
+.brand-line {
+  height: 1px;
+  background: var(--grad);
+  opacity: 0.45;
 }
 
 /* ─── Featured Drop ──────────────────────────────────────────── */
 #featured {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--border);
-  min-height: 55vh;
+  min-height: 52vh;
   overflow: hidden;
   position: relative;
-}
-
-/* Brand gradient left edge on featured section */
-#featured::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 2px;
-  background: var(--brand-grad);
-  opacity: 0.6;
-  z-index: 2;
+  border-bottom: 1px solid var(--border);
 }
 
 .featured-artwork {
   overflow: hidden;
-  background: #060606;
+  background: #050505;
+  position: relative;
 }
 
 .featured-artwork img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              filter 0.6s ease;
+  transition: transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.5s;
 }
 
 #featured:hover .featured-artwork img {
-  transform: scale(1.04);
-  filter: brightness(0.85);
+  transform: scale(1.05);
+  filter: brightness(0.8);
 }
 
 .featured-info {
-  padding: 4vw;
+  padding: 3.5vw 4vw;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 1.4rem;
+  gap: 1.2rem;
   border-left: 1px solid var(--border);
-  background: linear-gradient(135deg, rgba(72,0,204,0.04) 0%, transparent 60%);
+  background:
+    linear-gradient(135deg,
+      rgba(72,0,204,0.05) 0%,
+      transparent 55%
+    );
 }
 
+/* Chrome metallic gradient text — mirrors the 3D chrome objects */
 .featured-tag {
-  font-family: var(--font-ui);
-  font-size: 8px;
-  letter-spacing: 0.24em;
+  font-family: var(--label);
+  font-size: 9px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  /* Chrome gradient text — mirrors the chrome objects */
   background: var(--chrome-grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -346,22 +337,25 @@ img { display: block; }
   display: inline-block;
 }
 
+/* Space Grotesk Bold oversized artist name */
 .featured-artist {
-  font-family: var(--font-sans);
-  font-weight: 900;
-  font-size: clamp(28px, 4.5vw, 72px);
-  line-height: 0.92;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 80px);
+  line-height: 0.90;
   color: var(--white);
   text-transform: lowercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 .featured-title {
-  font-family: var(--font-display);
-  font-size: clamp(13px, 1.8vw, 28px);
-  color: rgba(240,240,240,0.4);
-  line-height: 1.15;
-  letter-spacing: 0.05em;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(14px, 1.6vw, 24px);
+  color: rgba(248,250,252,0.38);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .featured-actions {
@@ -371,48 +365,45 @@ img { display: block; }
   margin-top: 0.5rem;
 }
 
-/* Brand gradient CTA button */
+/* Gradient background CTA — the brand in a button */
 .featured-cta {
-  font-family: var(--font-ui);
+  font-family: var(--label);
   font-size: 9px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.20em;
   text-transform: uppercase;
   color: var(--white);
-  background: var(--brand-grad);
-  padding: 0.8rem 1.8rem;
+  background: var(--grad);
+  padding: 0.85rem 2rem;
   transition: opacity 0.2s, transform 0.2s;
   white-space: nowrap;
-  position: relative;
 }
-.featured-cta:hover {
-  opacity: 0.82;
-  transform: translateY(-1px);
-}
+.featured-cta:hover { opacity: 0.75; transform: translateY(-1px); }
 
 .featured-cta-sec {
-  font-family: var(--font-ui);
+  font-family: var(--label);
   font-size: 9px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.20em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.32);
+  color: rgba(248,250,252,0.28);
   transition: color 0.2s;
 }
 .featured-cta-sec:hover { color: var(--white); }
 
-/* ─── Artists Ticker ─────────────────────────────────────────── */
+/* ─── Artist Ticker ──────────────────────────────────────────── */
 .artists-ticker {
   overflow: hidden;
+  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
-  cursor: default;
+  padding: 0.9rem 0;
   background: var(--bg-2);
+  cursor: default;
 }
 
 .ticker-track {
   display: flex;
   white-space: nowrap;
   will-change: transform;
-  animation: ticker 28s linear infinite;
+  animation: ticker 25s linear infinite;
 }
 
 .artists-ticker:hover .ticker-track {
@@ -425,30 +416,29 @@ img { display: block; }
 }
 
 .ticker-track span {
-  font-family: var(--font-ui);
+  font-family: var(--label);
   font-size: 9px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.22);
-  padding: 0 1.6rem;
+  color: rgba(248,250,252,0.25);
+  padding: 0 1.8rem;
   transition: color 0.2s;
 }
-.ticker-track span:hover { color: rgba(240,240,240,0.55); }
+.ticker-track span:hover { color: rgba(248,250,252,0.65); }
 
-/* Chrome gradient on separators — mimics the chrome objects */
+/* Chrome gradient separator dots */
 .ticker-sep {
   background: var(--chrome-grad) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
-  opacity: 0.35 !important;
-  padding: 0 0.6rem !important;
+  opacity: 0.3 !important;
+  padding: 0 0.5rem !important;
 }
 
 /* ─── Releases ───────────────────────────────────────────────── */
 #releases {
   padding: 5vw var(--side) 8vw;
-  position: relative;
 }
 
 .releases-header {
@@ -456,25 +446,29 @@ img { display: block; }
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: 3.5vw;
-  padding-bottom: 1.2rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--border);
 }
 
+/* Space Grotesk Bold — large and aggressive for section heading */
 .releases-label {
-  font-family: var(--font-display);
-  font-size: clamp(22px, 3vw, 46px);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 56px);
   color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
 .releases-count {
-  font-family: var(--font-ui);
-  font-size: 8px;
+  font-family: var(--label);
+  font-size: 9px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.3);
+  color: rgba(248,250,252,0.25);
 }
 
-/* Asymmetric 12-col grid — same editorial layout */
+/* Asymmetric editorial grid — keeps the staggered layout */
 .releases-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -495,20 +489,18 @@ img { display: block; }
 .release-card {
   cursor: pointer;
   position: relative;
-  background: #080808;
+  background: #050505;
   overflow: hidden;
-  /* Chrome-inspired border — barely visible at rest */
-  outline: 1px solid rgba(255,255,255,0.04);
-  transition: outline-color 0.3s ease;
+  /* 1px border — Kinetic Brutalism thin borders */
+  border: 1px solid var(--border);
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .release-card:hover {
-  /* Brand gradient glow on hover — the "spotlight" from artworks */
-  outline-color: transparent;
+  border-color: rgba(72,0,204,0.5);
   box-shadow:
-    0 0 0 1px rgba(72,0,204,0.4),
-    0 0 30px rgba(72,0,204,0.15),
-    0 0 60px rgba(72,0,204,0.06);
+    0 0 0 1px rgba(72,0,204,0.2),
+    0 4px 40px rgba(72,0,204,0.10);
 }
 
 .release-card > img {
@@ -516,8 +508,7 @@ img { display: block; }
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              opacity 0.5s ease;
+  transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.5s;
 }
 
 .release-card:hover > img {
@@ -525,34 +516,32 @@ img { display: block; }
   opacity: 0.45;
 }
 
-/* Atmospheric overlay — mirrors the radial glow from artwork bg */
+/* Atmospheric overlay — mirrors the radial glow from artwork bgs */
 .release-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 1.6rem 1.6rem;
+  padding: 1.5rem;
   background:
     linear-gradient(to top,
-      rgba(5,2,20,0.95) 0%,
-      rgba(5,2,20,0.5) 40%,
-      rgba(5,2,20,0.1) 70%,
+      rgba(0,0,10,0.96) 0%,
+      rgba(0,0,10,0.55) 40%,
+      rgba(0,0,10,0.05) 75%,
       transparent 100%
     ),
-    radial-gradient(ellipse at 50% 100%, rgba(72,0,204,0.12) 0%, transparent 70%);
+    radial-gradient(ellipse at 50% 100%, rgba(72,0,204,0.14) 0%, transparent 65%);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s;
 }
 
-.release-card:hover .release-overlay {
-  opacity: 1;
-}
+.release-card:hover .release-overlay { opacity: 1; }
 
 .release-artist {
-  font-family: var(--font-sans);
-  font-weight: 900;
-  font-size: clamp(13px, 1.4vw, 20px);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(14px, 1.5vw, 22px);
   color: var(--white);
   text-transform: lowercase;
   line-height: 1;
@@ -560,45 +549,47 @@ img { display: block; }
 }
 
 .release-title {
-  font-family: var(--font-display);
-  font-size: clamp(10px, 0.9vw, 14px);
-  color: rgba(240,240,240,0.5);
-  margin-top: 0.4rem;
-  letter-spacing: 0.05em;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(11px, 0.9vw, 14px);
+  color: rgba(248,250,252,0.45);
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .release-links {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.9rem;
 }
 
 .release-links a {
-  font-family: var(--font-ui);
+  font-family: var(--label);
   font-size: 8px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.4);
-  transition: color 0.2s;
-  border-bottom: 1px solid rgba(240,240,240,0.1);
+  color: rgba(248,250,252,0.38);
+  border-bottom: 1px solid rgba(248,250,252,0.12);
   padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
 }
 .release-links a:hover {
   color: var(--white);
-  border-bottom-color: rgba(72,0,204,0.6);
+  border-bottom-color: rgba(72,0,204,0.7);
 }
 
-/* ─── Music (SoundCloud) ─────────────────────────────────────── */
+/* ─── Music ──────────────────────────────────────────────────── */
 #music {
   padding: 0 var(--side) 7vw;
 }
 
 .music-label {
-  font-family: var(--font-ui);
-  font-size: 8px;
+  font-family: var(--label);
+  font-size: 9px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.28);
+  color: rgba(248,250,252,0.25);
   margin-bottom: 1.8rem;
   padding-top: 5vw;
   border-top: 1px solid var(--border);
@@ -618,33 +609,32 @@ img { display: block; }
   border-top: 1px solid var(--border);
 }
 
-/* Recreates the "berbotu. records" Canva artwork atmosphere —
-   the purple radial glow centered, fading to near-black */
+/* Recreates the "berbotu. records" Canva artwork (page 48) —
+   rose-purple radial glow on deep dark, exactly that atmosphere */
 #demos::before {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 700px 500px at 50% 55%,
-      rgba(160,30,110,0.14) 0%,
-      rgba(72,0,204,0.10) 40%,
-      transparent 75%
-    );
+  background: radial-gradient(ellipse 800px 600px at 50% 60%,
+    rgba(140,20,100,0.12) 0%,
+    rgba(72,0,204,0.08) 45%,
+    transparent 75%
+  );
   pointer-events: none;
 }
 
-/* Chrome wings — the tribal artwork used as ambient decoration */
+/* Chrome wings artwork — Canva element, screen blend decorative */
 .demos-chrome-art {
   position: absolute;
-  bottom: -8%;
+  bottom: -10%;
   left: 50%;
   transform: translateX(-50%);
-  width: 60vw;
-  max-width: 700px;
-  opacity: 0.06;
+  width: 65vw;
+  max-width: 750px;
+  opacity: 0.07;
   mix-blend-mode: screen;
   pointer-events: none;
-  filter: blur(1px);
+  filter: blur(0.5px);
 }
 
 .demos-inner {
@@ -656,97 +646,92 @@ img { display: block; }
 }
 
 .demos-label {
-  font-family: var(--font-ui);
-  font-size: 8px;
+  font-family: var(--label);
+  font-size: 9px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.28);
+  color: rgba(248,250,252,0.25);
 }
 
-/* Chrome gradient text on the email — mirrors the chrome objects */
+/* Large email — Space Grotesk Bold, oversized, Kinetic Brutalism */
 .demos-email {
-  font-family: var(--font-sans);
-  font-weight: 900;
-  font-size: clamp(22px, 4.5vw, 80px);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(20px, 4vw, 72px);
   line-height: 1;
   display: inline-block;
   word-break: break-all;
-  background: linear-gradient(90deg, var(--white) 0%, rgba(200,200,200,0.7) 50%, var(--white) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: opacity 0.3s;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  transition: opacity 0.25s;
 }
-.demos-email:hover { opacity: 0.5; }
+.demos-email:hover { opacity: 0.35; }
 
 .demos-note {
-  font-family: var(--font-ui);
-  font-size: 8px;
+  font-family: var(--label);
+  font-size: 9px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.18);
+  color: rgba(248,250,252,0.16);
 }
 
 /* ─── Footer ─────────────────────────────────────────────────── */
 #footer {
   padding: 2.5rem var(--side);
-  border-top: 1px solid transparent;
-  /* Brand gradient as top border line — a signature touch */
-  background:
-    linear-gradient(var(--bg), var(--bg)) padding-box,
-    var(--brand-grad) border-box;
-  border-top: 1px solid transparent;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+  /* Brand gradient as the top border — the Berbotu signature */
+  border-top: 1px solid transparent;
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    var(--grad) border-box;
 }
 
-/* Chrome sparkle stars — decorative, screen blend from Canva */
+/* Chrome sparkle stars from Canva — screen blend decoration */
 .footer-chrome-art {
   position: absolute;
-  right: 5%;
+  right: 4%;
   top: 50%;
   transform: translateY(-50%);
-  height: 120%;
+  height: 130%;
   width: auto;
-  opacity: 0.07;
+  opacity: 0.08;
   mix-blend-mode: screen;
   pointer-events: none;
 }
 
 .footer-logo {
-  height: 12px;
+  height: 13px;
   width: auto;
-  opacity: 0.2;
+  opacity: 0.22;
   position: relative;
   z-index: 1;
 }
 
 .footer-meta {
-  font-family: var(--font-ui);
+  font-family: var(--label);
   font-size: 8px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.1);
-  position: relative;
-  z-index: 1;
+  color: rgba(248,250,252,0.10);
+  position: relative; z-index: 1;
 }
 
 .footer-links {
   display: flex;
-  gap: 2vw;
-  position: relative;
-  z-index: 1;
+  gap: 2.5vw;
+  position: relative; z-index: 1;
 }
 
 .footer-links a {
-  font-family: var(--font-ui);
+  font-family: var(--label);
   font-size: 8px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(240,240,240,0.16);
+  color: rgba(248,250,252,0.16);
   transition: color 0.2s;
 }
 .footer-links a:hover { color: var(--white); }
@@ -754,33 +739,23 @@ img { display: block; }
 /* ─── Scroll Reveal ──────────────────────────────────────────── */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+  transform: translateY(22px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* ─── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  :root { --gap: 2vw; --side: 3.5vw; }
+  :root { --gap: 2vw; --side: 4vw; }
 
-  .hero-chrome-art {
-    opacity: 0.10;
-    width: 70vw;
-    right: -15%;
-  }
+  .hero-chrome-art { opacity: 0.13; width: 65vw; right: -14%; }
 
-  #featured {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
+  #featured { grid-template-columns: 1fr; min-height: auto; }
   .featured-artwork { aspect-ratio: 1; }
   .featured-info {
     border-left: none;
     border-top: 1px solid var(--border);
-    padding: 2.5rem 3.5vw;
+    padding: 2.5rem 4vw;
   }
 
   .release-card:nth-child(10n+1),
@@ -790,29 +765,30 @@ img { display: block; }
   .release-card:nth-child(10n+7),
   .release-card:nth-child(10n+8),
   .release-card:nth-child(10n+9) { grid-column: span 6; }
-
   .release-card:nth-child(10n+3),
   .release-card:nth-child(10n+6),
   .release-card:nth-child(10n+10) { grid-column: span 12; }
 
+  /* Always-visible overlay on touch devices */
   .release-overlay { opacity: 1; }
   .release-card > img { opacity: 0.65; }
   .release-card:hover > img { opacity: 0.65; transform: none; }
 }
 
 @media (max-width: 640px) {
-  :root { --gap: 0.75rem; --side: 1.4rem; }
+  :root { --gap: 0.75rem; --side: 1.25rem; }
 
-  #nav { padding: 1.4rem var(--side); }
+  #nav { padding: 1.25rem var(--side); }
   .nav-links { display: none; }
 
   .hero-chrome-art { display: none; }
-  .hero-logo { width: min(260px, 72vw); }
+  .hero-logo { width: min(280px, 74vw); }
 
   .release-card { grid-column: span 12 !important; }
 
-  .releases-label { font-size: 26px; }
-  .demos-email { font-size: clamp(18px, 7.5vw, 44px); }
+  .releases-label { font-size: clamp(28px, 8vw, 48px); }
+  .featured-artist { font-size: clamp(30px, 8vw, 52px); }
+  .demos-email { font-size: clamp(18px, 7.5vw, 38px); }
 
   #footer {
     flex-direction: column;
@@ -820,4 +796,13 @@ img { display: block; }
     align-items: flex-start;
   }
   .footer-chrome-art { display: none; }
+  .demos-chrome-art { opacity: 0.04; }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  .hero-scroll-hint { animation: none; }
+  .reveal { transition: none; }
+  * { transition-duration: 0.01ms !important; }
 }
