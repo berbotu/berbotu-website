@@ -7,6 +7,29 @@
 // Artwork status:
 //   ✅ = confirmed file number visually verified
 //   🌐 = using Bandcamp CDN URL
+//
+// ─── UPCOMING — uncomment on release day ──────────────────────
+//
+// RELEASE MAY 20 — uncomment when live:
+// {
+//   artist: "ALEX GUZZO",
+//   title: "ON MY BRAIN",
+//   artwork: "assets/canva-dump/dump-1/33.svg", // ✅ confirmed — page 33
+//   sc: "https://soundcloud.com/berbotu/on-my-brain",
+//   bandcamp: "",
+//   spotify: ""
+// },
+//
+// RELEASE MAY 6 — uncomment when live:
+// {
+//   artist: "VDYM",
+//   title: "MARCHING TO THE RAVE",
+//   artwork: "assets/canva-dump/dump-1/28.svg", // ✅ confirmed — page 28
+//   sc: "https://soundcloud.com/berbotu/marching-to-the-rave",
+//   bandcamp: "",
+//   spotify: ""
+// },
+//
 
 const RELEASES = [
   {
